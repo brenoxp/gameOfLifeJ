@@ -16,6 +16,7 @@ import java.util.List;
  * 
  * @author rbonifacio
  */
+
 public class GameEngine {
 	private int height;
 	private int width;
@@ -136,6 +137,27 @@ public class GameEngine {
 		}
 		return aliveCells;
 	}
+	
+	/**
+	 * Verifica se uma posicao (a, b) referencia uma celula valida no tabuleiro. 
+	 *  
+	 * @return  Verdadeiro caso a posicao seja valida e falso caso contrario.
+	 */
+	public boolean validPosition(int a, int b) {
+		return a >= 0 && a < height && b >= 0 && b < width;
+	}
+	
+	/**
+	 * Finaliza execucao do Gaem of Life. 
+	 *  
+	 * @return void.
+	 */
+	public void halt() {
+		System.out.println("\n \n");
+		statistics.display();
+		System.exit(0);
+	}
+	
 
 	/* verifica se uma celula deve ser mantida viva */
 	private boolean shouldKeepAlive(int i, int j) {
@@ -157,19 +179,48 @@ public class GameEngine {
 		int alive = 0;
 		for (int a = i - 1; a <= i + 1; a++) {
 			for (int b = j - 1; b <= j + 1; b++) {
-				if (validPosition(a, b)  && (!(a==i && b == j)) && cells[a][b].isAlive()) {
+				List<Integer> convertedToInfiniteWorld = convertToInfiniteWorld(a, b);
+				int a1 = convertedToInfiniteWorld.get(0);
+				int b1 = convertedToInfiniteWorld.get(1);
+				
+				//System.out.printf("a: "+ a);
+				//System.out.printf("b: "+ b);
+				
+				if (validPosition(a1, b1)  && (!(a1==i && b1 == j)) && cells[a1][b1].isAlive()) {
 					alive++;
 				}
 			}
 		}
 		return alive;
 	}
-
-	/*
-	 * Verifica se uma posicao (a, b) referencia uma celula valida no tabuleiro.
-	 */
-	private boolean validPosition(int a, int b) {
-		return a >= 0 && a < height && b >= 0 && b < width;
+	
+	private List<Integer> convertToInfiniteWorld(int i, int j) {
+		/* 
+		 * Verifica se i eh uma posicao menor do que a origem do eixo x, 
+		 * caso seja i passa a ser o maior valor aceito de x.
+		 * Se i for uma posicao maior do que o maior valor aceito para o eixo x
+		 * o valor de i passa a ser o menor valor aceito de x.
+		 */
+		if(i == -1) {
+			i = width - 1;
+		} else if(i == width) {
+			i = 0;
+		}
+		
+		/*
+		 * O mesmo tratamento feito para i so que dessa vez no eixo y
+		 */
+		if(j == -1) {
+			j = height - 1;
+		} else if(j == height) {
+			j = 0;
+		}
+		
+		List<Integer> returnIJ = new ArrayList<Integer>(3);
+		returnIJ.add(i);
+		returnIJ.add(j);
+		
+		return returnIJ;
 	}
 
 	/* Metodos de acesso as propriedades height e width */

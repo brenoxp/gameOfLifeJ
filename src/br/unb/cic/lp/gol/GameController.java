@@ -4,7 +4,7 @@ import java.security.InvalidParameterException;
 
 /**
  * Classe que atua como um controlador do 
- * padr‹o MVC, separando os componentes da 
+ * padrao MVC, separando os componentes da 
  * camada de apresentacao e model. 
  * 
  * @author rbonifacio
@@ -40,10 +40,7 @@ public class GameController {
 	}
 	
 	public void halt() {
-		//oops, nao muito legal fazer sysout na classe Controller
-		System.out.println("\n \n");
-		statistics.display();
-		System.exit(0);
+		engine.halt();
 	}
 	
 	public void makeCellAlive(int i, int j) {

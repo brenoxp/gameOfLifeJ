@@ -31,7 +31,7 @@ public class GameView {
 
 	/**
 	 * Atualiza o componente view (representado pela classe GameBoard),
-	 * possivelmente como uma resposta a uma atualiza‹o do jogo.
+	 * possivelmente como uma resposta a uma atualizacao do jogo.
 	 */
 	public void update() {
 		printFirstRow();
@@ -97,7 +97,7 @@ public class GameView {
 	private boolean validPosition(int i, int j) {
 		System.out.println(i);
 		System.out.println(j);
-		return i >= 0 && i < engine.getHeight() && j >= 0 && j < engine.getWidth();
+		return engine.validPosition(i, j);
 	}
 
 	private int parseOption(String option) {
