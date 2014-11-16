@@ -7,20 +7,19 @@ import java.util.List;
 /**
  * Representa um ambiente (environment) do jogo GameOfLife.
  * 
- * Essa implementacao eh nao inifinita, ou seja, nem todas as celulas possuem
- * oito celulas vizinhas. Por exemplo, a celula de coordenada (0,0) possui
- * apenas tres celulas vizinhas, (0,1), (1,0) e (1,1).
  * 
- * Um ambiente eh representado como um array bidimensional de celulas, com
+ * Um ambiente eh representado como uma lista em que o metodo getListCellsItem(i, j)
+ * em que faz com que a lista possa ser vista como um vetor. 
+ * 
  * altura (height) e comprimento (width).
  * 
- * @author rbonifacio
+ *
  */
 
 public class GameEngine {
 	private int height;
 	private int width;
-	private Cell[][] cells;
+	private List<Cell> listCells;
 	private Statistics statistics;
 
 	/**
@@ -31,17 +30,10 @@ public class GameEngine {
 	 * @param width
 	 *            dimentsao horizontal do ambiente
 	 */
-	public GameEngine(int height, int width, Statistics statistics) {
+	public GameEngine(int height, int width, Statistics statistics, List<Cell> listCells) {
 		this.height = height;
 		this.width = width;
-
-		cells = new Cell[height][width];
-
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				cells[i][j] = new Cell();
-			}
-		}
+		this.listCells = listCells;
 		
 		this.statistics = statistics;
 	}
@@ -64,10 +56,10 @@ public class GameEngine {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				if (shouldRevive(i, j)) {
-					mustRevive.add(cells[i][j]);
+					mustRevive.add(getListCellsItem(i, j));
 				} 
-				else if ((!shouldKeepAlive(i, j)) && cells[i][j].isAlive()) {
-					mustKill.add(cells[i][j]);
+				else if ((!shouldKeepAlive(i, j)) && getListCellsItem(i, j).isAlive()) {
+					mustKill.add(getListCellsItem(i, j));
 				}
 			}
 		}
@@ -93,7 +85,7 @@ public class GameEngine {
 	 */
 	public void makeCellAlive(int i, int j) throws InvalidParameterException {
 		if(validPosition(i, j)) {
-			cells[i][j].revive();
+			getListCellsItem(i, j).revive();
 			statistics.recordRevive();
 		}
 		else {
@@ -112,7 +104,7 @@ public class GameEngine {
 	 */
 	public boolean isCellAlive(int i, int j) throws InvalidParameterException {
 		if(validPosition(i, j)) {
-			return cells[i][j].isAlive();
+			return getListCellsItem(i, j).isAlive();
 		}
 		else {
 			throw new InvalidParameterException("Invalid position (" + i + ", " + j + ")" );
@@ -158,16 +150,19 @@ public class GameEngine {
 		System.exit(0);
 	}
 	
-
+	private Cell getListCellsItem(int i, int j) {
+		 return this.listCells.get(i * this.width + j);
+	}
+	
 	/* verifica se uma celula deve ser mantida viva */
 	private boolean shouldKeepAlive(int i, int j) {
-		return (cells[i][j].isAlive())
+		return (getListCellsItem(i, j).isAlive())
 				&& (numberOfNeighborhoodAliveCells(i, j) == 2 || numberOfNeighborhoodAliveCells(i, j) == 3);
 	}
 
 	/* verifica se uma celula deve (re)nascer */
 	private boolean shouldRevive(int i, int j) {
-		return (!cells[i][j].isAlive())
+		return (!getListCellsItem(i, j).isAlive())
 				&& (numberOfNeighborhoodAliveCells(i, j) == 3);
 	}
 
@@ -183,10 +178,7 @@ public class GameEngine {
 				int a1 = convertedToInfiniteWorld.get(0);
 				int b1 = convertedToInfiniteWorld.get(1);
 				
-				//System.out.printf("a: "+ a);
-				//System.out.printf("b: "+ b);
-				
-				if (validPosition(a1, b1)  && (!(a1==i && b1 == j)) && cells[a1][b1].isAlive()) {
+				if (validPosition(a1, b1)  && (!(a1==i && b1 == j)) && getListCellsItem(i, j).isAlive()) {
 					alive++;
 				}
 			}

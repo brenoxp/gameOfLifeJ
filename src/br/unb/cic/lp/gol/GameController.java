@@ -36,17 +36,19 @@ public class GameController {
 	}
 	
 	public void start() {
-		board.update();
+//		board.update();
 	}
 	
 	public void halt() {
 		engine.halt();
 	}
 	
+
+	
 	public void makeCellAlive(int i, int j) {
 		try {
 			engine.makeCellAlive(i, j);
-			board.update();
+//			board.update();
 		}
 		catch(InvalidParameterException e) {
 			System.out.println(e.getMessage());
@@ -55,7 +57,7 @@ public class GameController {
 	
 	public void nextGeneration() {
 		engine.nextGeneration();
-		board.update();
+//		board.update();
 	}
 	
 }
