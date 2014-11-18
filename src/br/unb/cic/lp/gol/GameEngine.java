@@ -64,6 +64,19 @@ public class GameEngine {
 			}
 		}
 		
+//		for (int i = 0; i < height; i++) {
+//			for (int j = 0; j < width; j++) {
+//				if(getListCellsItem(i, j).isAlive()) {
+//					System.out.print("1 ");
+//				} else {
+//					System.out.print("0 ");
+//				}
+//			}
+//			System.out.println("");
+//		}
+//		System.out.println("\n\n\n");
+		
+		
 		for (Cell cell : mustRevive) {
 			cell.revive();
 			statistics.recordRevive();
@@ -73,6 +86,9 @@ public class GameEngine {
 			cell.kill();
 			statistics.recordKill();
 		}
+		
+
+		
 	}
 	
 	/**
@@ -178,7 +194,7 @@ public class GameEngine {
 				int a1 = convertedToInfiniteWorld.get(0);
 				int b1 = convertedToInfiniteWorld.get(1);
 				
-				if (validPosition(a1, b1)  && (!(a1==i && b1 == j)) && getListCellsItem(i, j).isAlive()) {
+				if (validPosition(a1, b1)  && (!(a1==i && b1 == j)) && getListCellsItem(a1, b1).isAlive()) {
 					alive++;
 				}
 			}
@@ -208,7 +224,7 @@ public class GameEngine {
 			j = 0;
 		}
 		
-		List<Integer> returnIJ = new ArrayList<Integer>(3);
+		List<Integer> returnIJ = new ArrayList<Integer>();
 		returnIJ.add(i);
 		returnIJ.add(j);
 		

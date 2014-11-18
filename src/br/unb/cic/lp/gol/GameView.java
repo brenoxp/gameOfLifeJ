@@ -2,22 +2,16 @@ package br.unb.cic.lp.gol;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 
 /**
  * Atua como um componente de apresentacao (view), exibindo o estado atual do
@@ -32,7 +26,7 @@ public class GameView {
 	
 	private GameController controller;
 	private JPanel controls;
-	private JPanel grid;
+	private GridView grid;
 	private List<Cell> cells;
 
 	/**
@@ -46,10 +40,6 @@ public class GameView {
 		cells = new ArrayList<Cell>();
 		
 		initUI();
-	}
-	
-	public List<Cell> getCells() {
-		return cells;
 	}
 	
 	/**
@@ -108,34 +98,40 @@ public class GameView {
 		return controls;
 	}
 	
-	private JPanel createGrid(JFrame window, JPanel controls) {
-		//Criacao do grid onde estao posicionadas as celulas
-		JPanel grid = new JPanel();
-		grid.setPreferredSize(new Dimension(window.getSize().width, 
-				window.getSize().height - controls.getSize().height - 67));
+	private GridView createGrid(JFrame window, JPanel controls) {
+//		Criacao do grid onde estao posicionadas as celulas
 
+		GridView grid = new GridView(height, width);
+		grid.setPreferredSize(new Dimension(window.getSize().width, 
+											window.getSize().height - 40));
+		
 		
 		grid.setLayout(new GridLayout(height, width));
 		
-     
-		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < width; j++) {
-				Cell cell = new Cell();
-
-				this.cells.add(cell);
-				
-				grid.add(cell);
-			}
-		}
-		
-        
-		
+		setCells(grid.getCells());
 		
 		return grid;
+		
 	}
 
+	public List<Cell> getCells() {
+		return cells;
+	}
 	
-
+	public boolean update() {
+		
+		grid.repaint();
+		if(grid.isAnyCellAlive() == false) {
+			return false;
+		} else {
+			return true;
+		}
+		
+	}
+	
+	private void setCells(List<Cell> cells) {
+		this.cells = cells;
+	}
 
 }
 

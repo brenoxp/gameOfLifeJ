@@ -1,6 +1,8 @@
 package br.unb.cic.lp.gol;
 
 import java.security.InvalidParameterException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Classe que atua como um controlador do 
@@ -56,8 +58,30 @@ public class GameController {
 	}
 	
 	public void nextGeneration() {
-		engine.nextGeneration();
-//		board.update();
+		//Declare the timer
+		
+		final Timer t = new Timer();
+		//Set the schedule function and rate
+		t.scheduleAtFixedRate(new TimerTask() {
+
+		    @Override
+		    public void run() {
+		    	engine.nextGeneration();
+		    	if(board.update() == false) {
+		    		t.cancel();
+		    	}
+				
+			
+		    }
+
+		},
+		//Set how long before to start calling the TimerTask (in milliseconds)
+		0,
+		//Set the amount of time between each execution (in milliseconds)
+		100);
+		
+//		t.cancel();
+		
 	}
 	
 }

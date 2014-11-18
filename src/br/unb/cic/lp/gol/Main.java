@@ -2,8 +2,8 @@ package br.unb.cic.lp.gol;
 
 public class Main {
 
-	private static int HEIGHT = 10;
-	private static int WIDTH = 15;
+	private static int HEIGHT = 50;
+	private static int WIDTH = 50;
 	
 	public static void main(String args[]) {
 		GameController controller = new GameController();
