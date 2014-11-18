@@ -14,12 +14,9 @@ public class Main {
 		
 		GameEngine engine = new GameEngine(HEIGHT, WIDTH, statistics, board.getCells());	
 		
-		
-		
 		controller.setBoard(board);
 		controller.setEngine(engine);
 		controller.setStatistics(statistics);
 		
-		controller.start();
 	}
 }

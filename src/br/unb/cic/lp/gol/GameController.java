@@ -38,42 +38,21 @@ public class GameController {
 	}
 	
 	public void start() {
-//		board.update();
-	}
-	
-	public void halt() {
-		engine.halt();
-	}
-	
-
-	
-	public void makeCellAlive(int i, int j) {
-		try {
-			engine.makeCellAlive(i, j);
-//			board.update();
-		}
-		catch(InvalidParameterException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	public void nextGeneration() {
 		//Declare the timer
 		
 		final Timer t = new Timer();
+		
 		//Set the schedule function and rate
 		t.scheduleAtFixedRate(new TimerTask() {
 
 		    @Override
 		    public void run() {
 		    	engine.nextGeneration();
-		    	if(board.update() == false) {
+		    	board.update();
+		    	if(engine.isAnyCellAlive() == false) {
 		    		t.cancel();
 		    	}
-				
-			
 		    }
-
 		},
 		//Set how long before to start calling the TimerTask (in milliseconds)
 		0,
@@ -81,6 +60,21 @@ public class GameController {
 		100);
 		
 //		t.cancel();
+	}
+	
+	public void halt() {
+		engine.halt();
+	}
+	
+	public void clickedCell(int i, int j) {
+		engine.clickedCell(i, j);
+		board.update();
+	}
+	
+	
+	public void nextGeneration() {
+		engine.nextGeneration();
+		board.update();
 		
 	}
 	

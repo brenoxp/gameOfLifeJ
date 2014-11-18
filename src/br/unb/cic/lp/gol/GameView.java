@@ -71,6 +71,15 @@ public class GameView {
 	
 	
 	private JPanel createButtonsMenu(JFrame window) {
+		JButton startButton = new JButton("Start");
+		startButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent a) {
+				controller.start();
+				
+			}
+		});
+		
 		JButton nextGeneration = new JButton("Next");
 		nextGeneration.addActionListener(new ActionListener() {
 			@Override
@@ -92,6 +101,7 @@ public class GameView {
 		JPanel controls = new JPanel();
 		controls.setBackground(Color.red);
 		controls.setPreferredSize(new Dimension(window.getSize().width, 40));
+		controls.add(startButton);
 		controls.add(nextGeneration);
 		controls.add(haltButton);
 		
@@ -101,7 +111,7 @@ public class GameView {
 	private GridView createGrid(JFrame window, JPanel controls) {
 //		Criacao do grid onde estao posicionadas as celulas
 
-		GridView grid = new GridView(height, width);
+		GridView grid = new GridView(height, width, controller);
 		grid.setPreferredSize(new Dimension(window.getSize().width, 
 											window.getSize().height - 40));
 		
@@ -118,15 +128,8 @@ public class GameView {
 		return cells;
 	}
 	
-	public boolean update() {
-		
+	public void update() {
 		grid.repaint();
-		if(grid.isAnyCellAlive() == false) {
-			return false;
-		} else {
-			return true;
-		}
-		
 	}
 	
 	private void setCells(List<Cell> cells) {

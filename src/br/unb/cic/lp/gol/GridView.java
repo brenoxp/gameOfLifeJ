@@ -19,10 +19,12 @@ public class GridView extends JPanel{
     private int rowCount;
     private List<Cell> cells;
     private Point selectedCell;
+    private GameController controller;
 
-    public GridView(final int rowCount, final int columnCount) {
+    public GridView(final int rowCount, final int columnCount, GameController controller) {
     	this.rowCount = rowCount;
     	this.columnCount = columnCount;
+    	this.controller = controller;
     	
         cells = new ArrayList<Cell>(columnCount * rowCount);
         
@@ -64,14 +66,7 @@ public class GridView extends JPanel{
 		int column = (int) selectedCell.getX();
 		int row = (int) selectedCell.getY();
 		
-		Cell cell = getListCellsItem(row, column);
-		
-		if(cell.isAlive()) {
-			cell.kill();
-		} else {
-			cell.revive();
-		}
-		
+		controller.clickedCell(row, column);
 	}
 
 
@@ -129,19 +124,6 @@ public class GridView extends JPanel{
     public List<Cell> getCells() {
     	return cells;
     }
-    
-    public boolean isAnyCellAlive() {
-    	for (Cell cell : cells) {
-        	if(cell.isAlive()) {
-        		return true;
-        	}
-        }
-    	
-    	return false;
-    }
 
-	private Cell getListCellsItem(int i, int j) {
-		 return this.cells.get(i * this.columnCount + j);
-	}
 
 }

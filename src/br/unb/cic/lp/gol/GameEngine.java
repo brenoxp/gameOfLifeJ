@@ -91,23 +91,20 @@ public class GameEngine {
 		
 	}
 	
+
 	/**
-	 * Torna a celula de posicao (i, j) viva
+	 * verifica se existe alguma celula viva
 	 * 
-	 * @param i posicao vertical da celula
-	 * @param j posicao horizontal da celula
-	 * 
-	 * @throws InvalidParameterException caso a posicao (i, j) nao seja valida.
+	 * @return Verdadeiro se tiver alguma celula viva e falso caso contrario
 	 */
-	public void makeCellAlive(int i, int j) throws InvalidParameterException {
-		if(validPosition(i, j)) {
-			getListCellsItem(i, j).revive();
-			statistics.recordRevive();
-		}
-		else {
-			new InvalidParameterException("Invalid position (" + i + ", " + j + ")" );
-		}
-	}
+    public boolean isAnyCellAlive() {
+    	for (Cell cell : listCells) {
+        	if(cell.isAlive()) {
+        		return true;
+        	}
+        }
+    	return false;
+    }
 	
 	/**
 	 * Verifica se uma celula na posicao (i, j) estah viva.
@@ -164,6 +161,53 @@ public class GameEngine {
 		System.out.println("\n \n");
 		statistics.display();
 		System.exit(0);
+	}
+	
+	public void clickedCell(int i, int j) {
+		Cell cell = getListCellsItem(i, j);
+		
+		if(cell.isAlive()) {
+			killCell(i, j);
+		} else {
+			makeCellAlive(i, j);
+		}
+		
+	}
+	
+	/**
+	 * Torna a celula de posicao (i, j) viva
+	 * 
+	 * @param i posicao vertical da celula
+	 * @param j posicao horizontal da celula
+	 * 
+	 * @throws InvalidParameterException caso a posicao (i, j) nao seja valida.
+	 */
+	private void makeCellAlive(int i, int j) throws InvalidParameterException {
+		if(validPosition(i, j)) {
+			getListCellsItem(i, j).revive();
+			statistics.recordRevive();
+		}
+		else {
+			new InvalidParameterException("Invalid position (" + i + ", " + j + ")" );
+		}
+	}
+	
+	/**
+	 * Torna a celula de posicao (i, j) morta
+	 * 
+	 * @param i posicao vertical da celula
+	 * @param j posicao horizontal da celula
+	 * 
+	 * @throws InvalidParameterException caso a posicao (i, j) nao seja valida.
+	 */
+	private void killCell(int i, int j) throws InvalidParameterException {
+		if(validPosition(i, j)) {
+			getListCellsItem(i, j).kill();
+			statistics.recordKill();
+		}
+		else {
+			new InvalidParameterException("Invalid position (" + i + ", " + j + ")" );
+		}
 	}
 	
 	private Cell getListCellsItem(int i, int j) {
@@ -248,4 +292,6 @@ public class GameEngine {
 	public void setWidth(int width) {
 		this.width = width;
 	}
+
+
 }
