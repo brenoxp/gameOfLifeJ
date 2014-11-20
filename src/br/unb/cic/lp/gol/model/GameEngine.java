@@ -1,8 +1,11 @@
-package br.unb.cic.lp.gol;
+package br.unb.cic.lp.gol.model;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.unb.cic.lp.gol.view.Cell;
+import br.unb.cic.lp.gol.view.Statistics;
 
 /**
  * Representa um ambiente (environment) do jogo GameOfLife.
@@ -63,18 +66,6 @@ public class GameEngine {
 				}
 			}
 		}
-		
-//		for (int i = 0; i < height; i++) {
-//			for (int j = 0; j < width; j++) {
-//				if(getListCellsItem(i, j).isAlive()) {
-//					System.out.print("1 ");
-//				} else {
-//					System.out.print("0 ");
-//				}
-//			}
-//			System.out.println("");
-//		}
-//		System.out.println("\n\n\n");
 		
 		
 		for (Cell cell : mustRevive) {
@@ -163,6 +154,15 @@ public class GameEngine {
 		System.exit(0);
 	}
 	
+	/**
+	 * Apos clicar em uma determinada celula no grid esse metodo fara com que ela se
+	 * torne viva caso esteja morta ou morra caso esteja viva. 
+	 * 
+	 * @param i posicao vertical da celula clicada
+	 * @param j posicao horizontal da celula clicada
+	 * 
+	 * 
+	 */
 	public void clickedCell(int i, int j) {
 		Cell cell = getListCellsItem(i, j);
 		
@@ -275,23 +275,23 @@ public class GameEngine {
 		return returnIJ;
 	}
 
-	/* Metodos de acesso as propriedades height e width */
-	
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
+//	/* Metodos de acesso as propriedades height e width */
+//	
+//	public int getHeight() {
+//		return height;
+//	}
+//
+//	public void setHeight(int height) {
+//		this.height = height;
+//	}
+//
+//	public int getWidth() {
+//		return width;
+//	}
+//
+//	public void setWidth(int width) {
+//		this.width = width;
+//	}
 
 
 }

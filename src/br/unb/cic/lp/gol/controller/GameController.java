@@ -1,8 +1,12 @@
-package br.unb.cic.lp.gol;
+package br.unb.cic.lp.gol.controller;
 
 import java.security.InvalidParameterException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import br.unb.cic.lp.gol.model.GameEngine;
+import br.unb.cic.lp.gol.view.GameView;
+import br.unb.cic.lp.gol.view.Statistics;
 
 /**
  * Classe que atua como um controlador do 

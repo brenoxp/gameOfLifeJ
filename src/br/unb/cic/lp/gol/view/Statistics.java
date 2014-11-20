@@ -1,4 +1,4 @@
-package br.unb.cic.lp.gol;
+package br.unb.cic.lp.gol.view;
 
 /**
  * Essa tambem eh uma classe com baixa coesao, 

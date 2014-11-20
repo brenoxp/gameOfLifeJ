@@ -1,4 +1,4 @@
-package br.unb.cic.lp.gol;
+package br.unb.cic.lp.gol.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +12,8 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import br.unb.cic.lp.gol.controller.GameController;
 
 /**
  * Atua como um componente de apresentacao (view), exibindo o estado atual do

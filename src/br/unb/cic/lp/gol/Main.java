@@ -1,5 +1,10 @@
 package br.unb.cic.lp.gol;
 
+import br.unb.cic.lp.gol.controller.GameController;
+import br.unb.cic.lp.gol.model.GameEngine;
+import br.unb.cic.lp.gol.view.GameView;
+import br.unb.cic.lp.gol.view.Statistics;
+
 public class Main {
 
 	private static int HEIGHT = 50;

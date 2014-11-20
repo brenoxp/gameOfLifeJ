@@ -1,4 +1,4 @@
-package br.unb.cic.lp.gol;
+package br.unb.cic.lp.gol.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import br.unb.cic.lp.gol.controller.GameController;
 
 
 public class GridView extends JPanel{
