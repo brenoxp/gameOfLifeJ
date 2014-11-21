@@ -19,7 +19,7 @@ import br.unb.cic.lp.gol.view.Statistics;
  *
  */
 
-public class GameEngine {
+public abstract class GameEngine {
 	private int height;
 	private int width;
 	private List<Cell> listCells;
@@ -37,7 +37,6 @@ public class GameEngine {
 		this.height = height;
 		this.width = width;
 		this.listCells = listCells;
-		
 		this.statistics = statistics;
 	}
 
@@ -171,7 +170,6 @@ public class GameEngine {
 		} else {
 			makeCellAlive(i, j);
 		}
-		
 	}
 	
 	/**
@@ -210,27 +208,21 @@ public class GameEngine {
 		}
 	}
 	
-	private Cell getListCellsItem(int i, int j) {
+	protected Cell getListCellsItem(int i, int j) {
 		 return this.listCells.get(i * this.width + j);
 	}
 	
 	/* verifica se uma celula deve ser mantida viva */
-	private boolean shouldKeepAlive(int i, int j) {
-		return (getListCellsItem(i, j).isAlive())
-				&& (numberOfNeighborhoodAliveCells(i, j) == 2 || numberOfNeighborhoodAliveCells(i, j) == 3);
-	}
+	protected abstract boolean shouldKeepAlive(int i, int j);
 
 	/* verifica se uma celula deve (re)nascer */
-	private boolean shouldRevive(int i, int j) {
-		return (!getListCellsItem(i, j).isAlive())
-				&& (numberOfNeighborhoodAliveCells(i, j) == 3);
-	}
+	protected abstract boolean shouldRevive(int i, int j);
 
 	/*
 	 * Computa o numero de celulas vizinhas vivas, dada uma posicao no ambiente
 	 * de referencia identificada pelos argumentos (i,j).
 	 */
-	private int numberOfNeighborhoodAliveCells(int i, int j) {
+	protected int numberOfNeighborhoodAliveCells(int i, int j) {
 		int alive = 0;
 		for (int a = i - 1; a <= i + 1; a++) {
 			for (int b = j - 1; b <= j + 1; b++) {
